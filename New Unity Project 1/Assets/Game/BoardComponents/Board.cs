@@ -31,17 +31,41 @@ public class Board : EasyGameObject
         Vector2 total = sizeEdge + sizeContent;
         Debug.Log(sizeEdge);
         Debug.Log(sizeContent);
-        Vector3 sizeCell = transform.localScale.divide(new Vector3(total.x, total.y, 1)),
-            p = getPosTopLeft() + sizeCell.mult(new Vector3(1f, -1f, 0)) * .5f;
+        Vector3 sizeCell = transform.localScale.divide(new Vector3(total.x, total.y, 1));
+        if (sizeCell.x < sizeCell.y) sizeCell.y = sizeCell.x;
+        else sizeCell.x = sizeCell.y;
+        Vector3 p = getPosTopLeft() + sizeCell.mult(new Vector3(1f, -1f, 0)) * .5f,
+                posContent =p + sizeCell.XY().mult(1.0f, -1.0f).mult(sizeEdge).XYZ(),
+                posLineHorz = posContent + sizeCell.mult(-.5f,.5f,0 ) + new Vector3(0,0,-.2f);
+        //for (int i = 0; i < 10; i++) 
+        //    DrawHelper.drawLine(p + new Vector3(5,5,0), p + sizeCell.mult(1, 1 + i, 0), .1f);
         transform.localScale = new Vector3(1, 1, 1); //prevent rescaling
 
         initTileContent<TileEdge>(PREFAB_TileEdge, ref EdgeVert, p + sizeCell.mult(sizeEdge.x, 0, 0), sizeCell, (int)sizeContent.x, (int)sizeEdge.y);
         initTileContent<TileEdge>(PREFAB_TileEdge, ref EdgeHorz, p + sizeCell.mult(0.0f, -sizeEdge.y, 0), sizeCell, (int)sizeEdge.x, (int)sizeContent.y);
-        initTileContent<Tile>(PREFAB_TileContent, ref tile2D, p + sizeCell.XY().mult(1.0f, -1.0f).mult(sizeEdge).XYZ(), sizeCell, (int)sizeContent.x, (int)sizeContent.y);
+        initTileContent<Tile>(PREFAB_TileContent, ref tile2D, posContent, sizeCell, (int)sizeContent.x, (int)sizeContent.y);
+
+        initSeparatingLines(posLineHorz, sizeCell.mult(sizeContent.XYZ(1.0f)),sizeCell, 
+            (int)sizeContent.x, (int)sizeContent.y);
         for (int x = 0; x < sizeContent.x; x++) for (int y = 0; y < sizeContent.y; y++)
             {
                // tile2D[x, y].setColor(x*.1f, y*.1f, 0);
             }
+    }
+    void initSeparatingLines(Vector3 at, Vector3 size, Vector3 sizeCell, int w , int h)
+    {
+        for (int y = 0; y <= h; y++)
+        {
+            var pos = at + sizeCell.mult(0, -y, 0);
+            var obj = DrawHelper.drawLine(pos, pos + new Vector3(size.x, 0, 0), .05f);
+            obj.transform.parent = transform;
+        }
+        for (int x = 0; x <= w; x++)
+        {
+            var pos = at + sizeCell.mult(x, 0, 0);
+            var obj = DrawHelper.drawLine(pos, pos - new Vector3(0, size.y, 0), .05f);
+            obj.transform.parent = transform;
+        }
     }
     void initEdge(TileEdge[,] tiles, List<List<int>> data, bool isHorizontal = true)
     {

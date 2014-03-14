@@ -46,13 +46,14 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Camera\CameraInput.cs" />
+     <Compile Include="Assets\Camera\CameraRatioCorrecter.cs" />
      <Compile Include="Assets\DrawHelper.cs" />
      <Compile Include="Assets\EasyGameObject.cs" />
      <Compile Include="Assets\Game\BoardComponents\Board.cs" />
      <Compile Include="Assets\Game\BoardComponents\Tile.cs" />
      <Compile Include="Assets\Game\BoardComponents\TileContent.cs" />
      <Compile Include="Assets\Game\BoardComponents\TileEdge.cs" />
-     <Compile Include="Assets\Game\CameraRatioCorrecter.cs" />
      <Compile Include="Assets\Game\MapData.cs" />
      <Compile Include="Assets\Game\MapGenerator.cs" />
      <Compile Include="Assets\Game\Vector3ExtentionMethods.cs" />

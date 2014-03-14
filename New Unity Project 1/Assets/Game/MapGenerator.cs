@@ -27,7 +27,7 @@ class MapGenerator
         foreach (List<int> e in d.matchH)
             helperRandomMatch(e,3, 6, 2);
         foreach (List<int> e in d.matchV)
-            helperRandomMatch(e,7, 7, 3);
+            helperRandomMatch(e,3, 7, 3);
         return d;
     }
 }
