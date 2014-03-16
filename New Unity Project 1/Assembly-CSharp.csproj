@@ -48,17 +48,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Camera\CameraInput.cs" />
+    <Compile Include="Assets\Camera\CameraMovementSmoother.cs" />
+    <Compile Include="Assets\Camera\CameraRatioCorrecter.cs" />
+    <Compile Include="Assets\Camera\CameraTouchController.cs" />
     <Compile Include="Assets\DrawHelper.cs" />
     <Compile Include="Assets\EasyGameObject.cs" />
+    <Compile Include="Assets\ExampleScript.cs" />
     <Compile Include="Assets\Game\BoardComponents\Board.cs" />
     <Compile Include="Assets\Game\BoardComponents\Tile.cs" />
     <Compile Include="Assets\Game\BoardComponents\TileContent.cs" />
     <Compile Include="Assets\Game\BoardComponents\TileEdge.cs" />
-    <Compile Include="Assets\Camera\CameraRatioCorrecter.cs" />
     <Compile Include="Assets\Game\MapData.cs" />
     <Compile Include="Assets\Game\MapGenerator.cs" />
     <Compile Include="Assets\Game\Vector3ExtentionMethods.cs" />
     <Compile Include="Assets\Number.cs" />
+    <Compile Include="Assets\Textures\TextureNumbers.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

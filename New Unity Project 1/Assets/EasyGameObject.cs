@@ -21,8 +21,8 @@ public class EasyGameObject : MonoBehaviour {
 	public GameObject getRoot(){
 		return transform.root.gameObject;
 	}
-	public void setColor(float r, float g, float b){
-		renderer.material.color = new Color(r, g, b);
+	public void setColor(float r, float g, float b,float a = 1.0f){
+		renderer.material.color = new Color(r, g, b,a);
 	}
 
 

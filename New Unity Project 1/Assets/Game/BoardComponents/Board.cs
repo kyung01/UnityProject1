@@ -8,49 +8,78 @@ public class Board : EasyGameObject
 {
     public GameObject PREFAB_TileEdge;
     public GameObject PREFAB_TileContent;
-
-    List<Tile> tiles = new List<Tile>();
-    TileEdge[,] EdgeHorz, EdgeVert;
-    Tile[,] tile2D;
+    MapData map;
+    TileEdge[,] edgeHorz, edgeVert;
+    TileContent[,] tiles;
+    //Events
+    void EVENT_LineMatch(int x, int y, bool state)
+    {
+        Vector4 color = state ? new Vector4(.8f, 1, .8f, 1f) : new Vector4(1, 1, 1, .5f);
+        if (y >= 0)
+            for (int i = 0; i < edgeHorz.GetLength(0); i++)
+                edgeHorz[i, y].setColor(color.x, color.y, color.z, color.w);
+        if (x >= 0)
+            for (int i = 0; i < edgeVert.GetLength(1); i++)
+                edgeVert[x, i].setColor(color.x, color.y, color.z, color.w);
+    }
+    void EVENT_TileChanged(int x, int y, int state)
+    {
+        tiles[x, y].displayState(state);
+    }
+    void EVENT_ClickContent(Tile t)
+    {
+        map.doMark(t.index[0], t.index[1]);
+    }
 	// Use this for initialization
     void Start()
     {
-        renderer.enabled = false;
-        var map = MapGenerator.getRandom(5, 5);
-        var edge = map.getEdgeSize();
-        initEmptyBoard(edge, map.size);
-        //init(map.size.x, map.size.y);
-
-        initEdge(EdgeHorz, map.matchH);
-        initEdge(EdgeVert, map.matchV,false);
-        //initEdge(EdgeVert, map.matchV);
-		//(arr [0] as GameObject).transform.position = (arr [0] as GameObject).transform.position - new Vector3 (-1f, 0, 0);
+        //renderer.enabled = false;
+        //map = MapGenerator.getRandom(5, 5);
+        //var edge = map.getEdgeSize();
+        //initEmptyBoard(edge, map.size);
+        ////init(map.size.x, map.size.y);
+        //
+        //initEdge(edgeHorz, map.matchH);
+        //initEdge(edgeVert, map.matchV,false);
+        //link();
+        //map.doUpdateMatches();
 	}
+    void linkStaticEvents()
+    {
+        MapData.EVENT_TileChanged += EVENT_TileChanged;
+        MapData.EVENT_LineMatch += EVENT_LineMatch;
+    }
+    
+    void link()
+    {
+        linkStaticEvents();
+        for (int x = 0; x < tiles.GetLength(0); x++) for (int y = 0; y < tiles.GetLength(1); y++)
+        {
+            tiles[x,y].index = new int[]{x,y};
+            tiles[x, y].EVENT_Click = this.EVENT_ClickContent;
+
+        }
+    }
+    
     void initEmptyBoard(Vector2 sizeEdge, Vector2 sizeContent)
     {
         Vector2 total = sizeEdge + sizeContent;
-        Debug.Log(sizeEdge);
-        Debug.Log(sizeContent);
         Vector3 sizeCell = transform.localScale.divide(new Vector3(total.x, total.y, 1));
         if (sizeCell.x < sizeCell.y) sizeCell.y = sizeCell.x;
         else sizeCell.x = sizeCell.y;
         Vector3 p = getPosTopLeft() + sizeCell.mult(new Vector3(1f, -1f, 0)) * .5f,
                 posContent =p + sizeCell.XY().mult(1.0f, -1.0f).mult(sizeEdge).XYZ(),
-                posLineHorz = posContent + sizeCell.mult(-.5f,.5f,0 ) + new Vector3(0,0,-.2f);
+                posLineHorz = posContent + sizeCell.mult(-.5f,.5f,0 ) + new Vector3(0,0,-.01f);
         //for (int i = 0; i < 10; i++) 
         //    DrawHelper.drawLine(p + new Vector3(5,5,0), p + sizeCell.mult(1, 1 + i, 0), .1f);
         transform.localScale = new Vector3(1, 1, 1); //prevent rescaling
 
-        initTileContent<TileEdge>(PREFAB_TileEdge, ref EdgeVert, p + sizeCell.mult(sizeEdge.x, 0, 0), sizeCell, (int)sizeContent.x, (int)sizeEdge.y);
-        initTileContent<TileEdge>(PREFAB_TileEdge, ref EdgeHorz, p + sizeCell.mult(0.0f, -sizeEdge.y, 0), sizeCell, (int)sizeEdge.x, (int)sizeContent.y);
-        initTileContent<Tile>(PREFAB_TileContent, ref tile2D, posContent, sizeCell, (int)sizeContent.x, (int)sizeContent.y);
+        initTileContent<TileEdge>(PREFAB_TileEdge, ref edgeVert, p + sizeCell.mult(sizeEdge.x, 0, 0), sizeCell, (int)sizeContent.x, (int)sizeEdge.y);
+        initTileContent<TileEdge>(PREFAB_TileEdge, ref edgeHorz, p + sizeCell.mult(0.0f, -sizeEdge.y, 0), sizeCell, (int)sizeEdge.x, (int)sizeContent.y);
+        initTileContent<TileContent>(PREFAB_TileContent, ref tiles, posContent, sizeCell, (int)sizeContent.x, (int)sizeContent.y);
 
         initSeparatingLines(posLineHorz, sizeCell.mult(sizeContent.XYZ(1.0f)),sizeCell, 
             (int)sizeContent.x, (int)sizeContent.y);
-        for (int x = 0; x < sizeContent.x; x++) for (int y = 0; y < sizeContent.y; y++)
-            {
-               // tile2D[x, y].setColor(x*.1f, y*.1f, 0);
-            }
     }
     void initSeparatingLines(Vector3 at, Vector3 size, Vector3 sizeCell, int w , int h)
     {

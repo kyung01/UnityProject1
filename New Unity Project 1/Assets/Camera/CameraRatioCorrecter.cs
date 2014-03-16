@@ -23,14 +23,6 @@ public class CameraRatioCorrecter : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-		correctResolution ();
-
-
-		//Debug.Log (cam.aspect);
-		//Debug.Log ("ASEPCT NOW " + Screen.currentResolution.width + " " + Screen.currentResolution.height);
-		//cam.orthographicSize *= 1.01f;
-		//cam.aspect *= 0.991f;
-		//cam.aspect =(Screen.currentResolution.width) / Screen.currentResolution.height ;
 	
 	}
 }

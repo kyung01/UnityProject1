@@ -24,10 +24,7 @@ class MapGenerator
     public static MapData getRandom(int w, int h)
     {
         var d = new MapData(w, h);
-        foreach (List<int> e in d.matchH)
-            helperRandomMatch(e,3, 6, 2);
-        foreach (List<int> e in d.matchV)
-            helperRandomMatch(e,3, 7, 3);
+        d.setRandomMatches(10);
         return d;
     }
 }
