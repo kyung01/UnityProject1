@@ -13,11 +13,11 @@ class TileEdge : Tile
     }
     public void init()
     {
-        //num = transform.GetComponentInChildren<Number>();// as Number;
+        num = transform.GetComponentInChildren<Number>();// as Number;
     }
     void Start()
     {
-        //if (num == null) init();
+        if (num == null) init();
     }
     void Update()
     {

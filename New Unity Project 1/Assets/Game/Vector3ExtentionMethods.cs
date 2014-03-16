@@ -21,6 +21,13 @@ namespace Vector3ExtensionMethods{
         }
 
 
+        public static Vector3 absolute(this Vector3 me)
+        {
+            me.x = Mathf.Abs(me.x);
+            me.y = Mathf.Abs(me.y);
+            me.z = Mathf.Abs(me.z);
+            return me;
+        }
         public static Vector3 divide(this Vector3 me, Vector3 other){
 			return new Vector3(me.x/ other.x,me.y/other.y,me.z/other.z );
 		}

@@ -8,9 +8,23 @@ public class Board : EasyGameObject
 {
     public GameObject PREFAB_TileEdge;
     public GameObject PREFAB_TileContent;
+
+    ControllerScale controller; 
     MapData map;
     TileEdge[,] edgeHorz, edgeVert;
     TileContent[,] tiles;
+    
+    //helpers
+    GameObject helperInstantiateTile(GameObject instance, Vector3 at, Vector3 size, int x, int y)
+    {
+        var p = at + size.mult(new Vector3(x, -y, 0));
+        var obj = Instantiate(instance, p, transform.rotation) as GameObject;
+        obj.transform.localScale = size;
+        obj.transform.parent = transform;
+
+        return obj;
+    }
+	
     //Events
     void EVENT_LineMatch(int x, int y, bool state)
     {
@@ -28,27 +42,27 @@ public class Board : EasyGameObject
     }
     void EVENT_ClickContent(Tile t)
     {
+        Debug.Log("click " + t.index[0] + " " + t.index[1]);
         map.doMark(t.index[0], t.index[1]);
+        if (map.isGameOver()) doGameOver();
     }
 	// Use this for initialization
     void Start()
     {
-        //renderer.enabled = false;
-        //map = MapGenerator.getRandom(5, 5);
-        //var edge = map.getEdgeSize();
-        //initEmptyBoard(edge, map.size);
-        ////init(map.size.x, map.size.y);
-        //
-        //initEdge(edgeHorz, map.matchH);
-        //initEdge(edgeVert, map.matchV,false);
-        //link();
-        //map.doUpdateMatches();
-	}
-    void linkStaticEvents()
-    {
-        MapData.EVENT_TileChanged += EVENT_TileChanged;
-        MapData.EVENT_LineMatch += EVENT_LineMatch;
+        
+        renderer.enabled = false;
+        map = MapGenerator.getRandom(5, 5);
+        controller=  transform.gameObject.AddComponent(typeof(ControllerScale)) as ControllerScale;
+        var edge = map.getEdgeSize();
+        initEmptyBoard(edge, map.size);
+
+
+        initEdge(edgeHorz, map.matchH);
+        initEdge(edgeVert, map.matchV, false);
+        link();
+        map.doUpdateMatches();
     }
+    
     
     void link()
     {
@@ -59,6 +73,11 @@ public class Board : EasyGameObject
             tiles[x, y].EVENT_Click = this.EVENT_ClickContent;
 
         }
+    }
+    void linkStaticEvents()
+    {
+        MapData.EVENT_TileChanged += EVENT_TileChanged;
+        MapData.EVENT_LineMatch += EVENT_LineMatch;
     }
     
     void initEmptyBoard(Vector2 sizeEdge, Vector2 sizeContent)
@@ -81,21 +100,6 @@ public class Board : EasyGameObject
         initSeparatingLines(posLineHorz, sizeCell.mult(sizeContent.XYZ(1.0f)),sizeCell, 
             (int)sizeContent.x, (int)sizeContent.y);
     }
-    void initSeparatingLines(Vector3 at, Vector3 size, Vector3 sizeCell, int w , int h)
-    {
-        for (int y = 0; y <= h; y++)
-        {
-            var pos = at + sizeCell.mult(0, -y, 0);
-            var obj = DrawHelper.drawLine(pos, pos + new Vector3(size.x, 0, 0), .05f);
-            obj.transform.parent = transform;
-        }
-        for (int x = 0; x <= w; x++)
-        {
-            var pos = at + sizeCell.mult(x, 0, 0);
-            var obj = DrawHelper.drawLine(pos, pos - new Vector3(0, size.y, 0), .05f);
-            obj.transform.parent = transform;
-        }
-    }
     void initEdge(TileEdge[,] tiles, List<List<int>> data, bool isHorizontal = true)
     {
         int _x , _y;
@@ -117,37 +121,28 @@ public class Board : EasyGameObject
                 arr[x, y] = e;
             }
     }
-    Tile helperInstantiateTile(GameObject instance, Vector3 at, Vector3 size, int x, int y)
+    void initSeparatingLines(Vector3 at, Vector3 size, Vector3 sizeCell, int w, int h)
     {
-		var p =  at + size.mult(  new Vector3( x,- y, 0) ) ;
-        var obj = Instantiate(instance, p, transform.rotation) as GameObject;
-		obj.transform.localScale = size;
-		obj.transform.parent = transform;
-        
-		return obj.GetComponent("Tile") as Tile;
-	}
-	void initTiles(Vector3 at, Vector3 size,float w, float h){
-	}
+        for (int y = 0; y <= h; y++)
+        {
+            var pos = at + sizeCell.mult(0, -y, 0);
+            var obj = DrawHelper.drawLine(pos, pos + new Vector3(size.x, 0, 0), .05f);
+            obj.transform.parent = transform;
+        }
+        for (int x = 0; x <= w; x++)
+        {
+            var pos = at + sizeCell.mult(x, 0, 0);
+            var obj = DrawHelper.drawLine(pos, pos - new Vector3(0, size.y, 0), .05f);
+            obj.transform.parent = transform;
+        }
+    }
+
+    void doGameOver()
+    {
+        transform.position += new Vector3(0, 0, -100);
+    }
 	// Update is called once per frame
 	void Update () {
 	
 	}
 }
-/**
- * 
-		List<Tile> t;
-        tile2D = new List<List<Tile>> ();
-        //boundry; edge numbers.
-		for (int x = 0; x<w; x++) {
-            tile2D.Add(new List<Tile>());
-            tile2D[x].Add(helperInstantiateTile(PREFAB_TileEdge,at, size, x, 0));
-		}
-        t = tile2D[0];
-        for (int y = 1; y < h; y++) t.Add(helperInstantiateTile(PREFAB_TileEdge,at, size, 0, y));
-        //board
-		for (int x = 1; x< w; x++) {
-            t = tile2D[x];
-            for (int y = 1; y < h; y++) 
-                t.Add(helperInstantiateTile(PREFAB_TileContent, at, size, x, y));
-		}
-**/
