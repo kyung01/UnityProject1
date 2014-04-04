@@ -46,23 +46,32 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Game\BoardComponents\Board.cs" />
-     <Compile Include="Assets\Game\BoardComponents\ControllerScale.cs" />
-     <Compile Include="Assets\Game\BoardComponents\Tile.cs" />
-     <Compile Include="Assets\Game\BoardComponents\TileContent.cs" />
-     <Compile Include="Assets\Game\BoardComponents\TileEdge.cs" />
-     <Compile Include="Assets\Game\Camera\CameraInput.cs" />
-     <Compile Include="Assets\Game\Camera\CameraMovementSmoother.cs" />
-     <Compile Include="Assets\Game\Camera\CameraRatioCorrecter.cs" />
-     <Compile Include="Assets\Game\Camera\CameraTouchController.cs" />
-     <Compile Include="Assets\Game\DrawHelper.cs" />
-     <Compile Include="Assets\Game\EasyGameObject.cs" />
-     <Compile Include="Assets\Game\ExampleScript.cs" />
-     <Compile Include="Assets\Game\MapData.cs" />
-     <Compile Include="Assets\Game\MapGenerator.cs" />
-     <Compile Include="Assets\Game\Number.cs" />
-     <Compile Include="Assets\Game\Textures\TextureNumbers.cs" />
-     <Compile Include="Assets\Game\Vector3ExtentionMethods.cs" />
+     <Compile Include="Assets\00Scripts\BoardComponents\Board.cs" />
+     <Compile Include="Assets\00Scripts\BoardComponents\ControllerBoard.cs" />
+     <Compile Include="Assets\00Scripts\BoardComponents\Tile.cs" />
+     <Compile Include="Assets\00Scripts\BoardComponents\TileContent.cs" />
+     <Compile Include="Assets\00Scripts\BoardComponents\TileEdge.cs" />
+     <Compile Include="Assets\00Scripts\Camera\CameraMovementSmoother.cs" />
+     <Compile Include="Assets\00Scripts\Camera\CameraRatioCorrecter.cs" />
+     <Compile Include="Assets\00Scripts\EasyGameObject.cs" />
+     <Compile Include="Assets\00Scripts\Graphics\DrawHelper.cs" />
+     <Compile Include="Assets\00Scripts\Graphics\TextureNumbers.cs" />
+     <Compile Include="Assets\00Scripts\Interface\BttnPlay.cs" />
+     <Compile Include="Assets\00Scripts\Interface\Number.cs" />
+     <Compile Include="Assets\00Scripts\Interface\ObjRotator.cs" />
+     <Compile Include="Assets\00Scripts\Interface\SceneManager.cs" />
+     <Compile Include="Assets\00Scripts\MapData\MapData.cs" />
+     <Compile Include="Assets\00Scripts\MapData\MapGenerator.cs" />
+     <Compile Include="Assets\00Scripts\Vector3ExtentionMethods.cs" />
+     <Compile Include="Assets\HelperObjectRotator.cs" />
+     <Compile Include="Assets\InputManager.cs" />
+     <Compile Include="Assets\JointBasic.cs" />
+     <Compile Include="Assets\MeshVertices.cs" />
+     <Compile Include="Assets\zOthers\Bamboo\BB_branch.cs" />
+     <Compile Include="Assets\zOthers\Bamboo\BamBooBones.cs" />
+     <Compile Include="Assets\zOthers\Bamboo\BamBooFlesh.cs" />
+     <Compile Include="Assets\zOthers\Swing\SwingApplier.cs" />
+     <Compile Include="Assets\zOthers\Swing\Swinger.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
