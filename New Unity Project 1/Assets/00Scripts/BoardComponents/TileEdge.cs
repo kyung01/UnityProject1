@@ -6,14 +6,19 @@ using System.Text;
 
 class TileEdge : Tile
 {
-    public Number num;
+    public EasyTextMesh num;
     public TileEdge()
     {
        
     }
-    public void init()
+    void init()
     {
-        num = transform.GetComponentInChildren<Number>();// as Number;
+        renderer.enabled = false;
+
+    }
+    void Awake()
+    {
+        renderer.enabled = false;
     }
     void Start()
     {
@@ -26,6 +31,11 @@ class TileEdge : Tile
     void OnMouseDown()
     {
         Debug.Log( "DOWN");
+    }
+    public void display(int n)
+    {
+        Debug.Log("Requested to display " + n);
+        num.display(""+n);
     }
 
 }

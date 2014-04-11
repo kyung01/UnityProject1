@@ -27,4 +27,7 @@ class InputManager
         }
         return Input.mousePosition;
     }
+    public static Vector3 helperGetRatio(Vector3 v) {
+        return new Vector3(v.x/ Screen.width, v.y/ Screen.height, v.z); 
+    }
 }

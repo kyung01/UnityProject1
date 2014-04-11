@@ -21,7 +21,7 @@ class MapGenerator
             if (num != 0)l.Add(num);
         }
     }
-    public static MapData getRandom(int w, int h)
+    public static MapData getBoard_RandomContent(int w, int h)
     {
         var d = new MapData(w, h);
         d.setRandomMatches(10);

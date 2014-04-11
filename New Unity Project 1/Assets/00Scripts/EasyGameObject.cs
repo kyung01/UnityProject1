@@ -8,10 +8,28 @@ public class EasyGameObject : MonoBehaviour {
         foreach (Transform child in t)
             HelperSetLayersRecursively(child, layer);
     }
-	// Use this for initialization
-	void Start () {
-	
-	}
+    public Vector3 RotationWorld
+    {
+        get
+        {
+            Transform parent = transform.parent;
+            transform.parent = null;
+            Vector3 rot = transform.rotation.eulerAngles;
+            transform.parent = parent;
+            return rot;
+        }
+    }
+    public Vector3 ScaleWorld
+    {
+        get
+        {
+            Transform parent = transform.parent;
+            transform.parent = null;
+            Vector3 rot = transform.localScale;
+            transform.parent = parent;
+            return rot;
+        }
+    }
 
     protected void setLayersRecursively()
     {

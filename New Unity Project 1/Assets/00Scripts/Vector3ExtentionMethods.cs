@@ -42,5 +42,9 @@ namespace Vector3ExtensionMethods{
         {
             return new Vector3(me.x * other.x, me.y * other.y, me.z * other.z);
         }
+        public static Vector3 mult(this Vector3 me, Vector2 other)
+        {
+            return new Vector3(me.x * other.x, me.y * other.y, 0);
+        }
 	}
 }
