@@ -9,7 +9,9 @@ class BehaviorSlide : EasyGameObject
     public GameObject obj;
     public Vector3 distance;
 
-    Vector3 ratio;
+    bool isFirstTouch = true;
+    Vector3 ratio,
+            ratioFrom;
     int index = 0;
     void SlideHorz(Vector3 dir)
     {
@@ -24,11 +26,18 @@ class BehaviorSlide : EasyGameObject
         obj.transform.position = transform.position + (distance * index);
         if (ratio != null) obj.transform.position += distance.mult(ratio.Value);
     }
+    Vector3 helperGetRatio()
+    {
+        Vector3 ratio = InputManager.helperGetRatio(InputManager.getInputAt(0)) - new Vector3(.5f, .5f, 0);
+        ratio = ratio.divide(new Vector3(.5f, .5f, 1));
+        return ratio;
+    }
     void Update()
     {
 
         if (InputManager.getInputCount() < 1)
         {
+            isFirstTouch = true;
             //Debug.Log(ratio.magnitude + " ");
             if (ratio.magnitude < RATIO_MIN)
             {
@@ -41,9 +50,13 @@ class BehaviorSlide : EasyGameObject
             }
             return;
         }
-        
-        ratio =InputManager.helperGetRatio(InputManager.getInputAt(0)) - new Vector3(.5f,.5f,0);
-        ratio = ratio.divide(new Vector3(.5f, .5f, 1));
+        if (isFirstTouch)
+        {
+            ratioFrom = helperGetRatio();
+            isFirstTouch = false;
+            return;
+        }
+        ratio = helperGetRatio() - ratioFrom;
         helperResetPosition(index, ratio);
         //Debug.Log(index + " "+  ratio);
     }

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-class IcnLevel : EasyGameObject
+class IcnLevel : EasyButton
 {
-    EasyTextMesh icnLevel,icnProgress;
-    public void display(int level, int levelSize, int levelCompleted = 0)
+    
+    public EasyTextMesh textLevel, textCount;
+    public void display(int level, int countMaps,int countCompleted)
     {
-        icnLevel.display("" + level);
-        icnProgress.display("" + levelCompleted + " / " + levelSize);
+        textLevel.display(""+level);
+        textCount.display(""+countCompleted+"/" + countMaps);
+
     }
 }

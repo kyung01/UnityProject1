@@ -8,7 +8,6 @@ public class EasyTextMesh : EasyGameObject {
     public TextMesh mesh;
     public string data = "0";
 	void Awake () {
-        renderer.enabled = false;
         display(data);
 	}
 
@@ -30,7 +29,7 @@ public class EasyTextMesh : EasyGameObject {
             transform.position + new Vector3(
             -Mathf.Abs(mesh.renderer.bounds.size.x) * .5f,
             Mathf.Abs(mesh.renderer.bounds.size.y) * .5f, 0);
-
+        mesh.transform.position += new Vector3(0, - mesh.renderer.bounds.size.y  *.1f, 0);
         mesh.transform.parent = transform;
         transform.rotation = rotBefore;
     }

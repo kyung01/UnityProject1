@@ -25,6 +25,7 @@ class MapGenerator
     {
         var d = new MapData(w, h);
         d.setRandomMatches(10);
+        d.doUpdateMatches();
         return d;
     }
 }

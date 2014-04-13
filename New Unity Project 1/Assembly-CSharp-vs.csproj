@@ -46,6 +46,8 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\00Scripts\Behavior\BehaviorFillScreen.cs" />
+     <Compile Include="Assets\00Scripts\Behavior\BehaviorSlide.cs" />
      <Compile Include="Assets\00Scripts\BoardComponents\Board.cs" />
      <Compile Include="Assets\00Scripts\BoardComponents\ControllerBoard.cs" />
      <Compile Include="Assets\00Scripts\BoardComponents\Tile.cs" />
@@ -53,20 +55,22 @@
      <Compile Include="Assets\00Scripts\BoardComponents\TileEdge.cs" />
      <Compile Include="Assets\00Scripts\Camera\CameraMovementSmoother.cs" />
      <Compile Include="Assets\00Scripts\Camera\CameraRatioCorrecter.cs" />
+     <Compile Include="Assets\00Scripts\Data\DataLevel.cs" />
+     <Compile Include="Assets\00Scripts\Data\MapData.cs" />
+     <Compile Include="Assets\00Scripts\Data\MapGenerator.cs" />
      <Compile Include="Assets\00Scripts\EasyGameObject.cs" />
      <Compile Include="Assets\00Scripts\EasySprite.cs" />
+     <Compile Include="Assets\00Scripts\EasyTextMesh.cs" />
      <Compile Include="Assets\00Scripts\Graphics\DrawHelper.cs" />
-     <Compile Include="Assets\00Scripts\Graphics\Interface\BehaviorFillScreen.cs" />
-     <Compile Include="Assets\00Scripts\Graphics\Interface\BehaviorSlide.cs" />
+     <Compile Include="Assets\00Scripts\Graphics\EasyButton.cs" />
      <Compile Include="Assets\00Scripts\Graphics\Interface\BttnPlay.cs" />
-     <Compile Include="Assets\00Scripts\Graphics\Interface\EasyTextMesh.cs" />
      <Compile Include="Assets\00Scripts\Graphics\Interface\IcnLevel.cs" />
+     <Compile Include="Assets\00Scripts\Graphics\Interface\IcnStage.cs" />
      <Compile Include="Assets\00Scripts\Graphics\Interface\ObjRotator.cs" />
      <Compile Include="Assets\00Scripts\Graphics\Interface\PinnedObject.cs" />
      <Compile Include="Assets\00Scripts\Graphics\Interface\SceneManager.cs" />
+     <Compile Include="Assets\00Scripts\Graphics\Interface\ScreenLevel.cs" />
      <Compile Include="Assets\00Scripts\Graphics\TextureNumbers.cs" />
-     <Compile Include="Assets\00Scripts\MapData\MapData.cs" />
-     <Compile Include="Assets\00Scripts\MapData\MapGenerator.cs" />
      <Compile Include="Assets\00Scripts\Vector3ExtentionMethods.cs" />
      <Compile Include="Assets\HelperObjectRotator.cs" />
      <Compile Include="Assets\InputManager.cs" />

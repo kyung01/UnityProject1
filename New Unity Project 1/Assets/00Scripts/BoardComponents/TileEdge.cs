@@ -30,11 +30,11 @@ class TileEdge : Tile
     }
     void OnMouseDown()
     {
-        Debug.Log( "DOWN");
+        //Debug.Log( "DOWN");
     }
     public void display(int n)
     {
-        Debug.Log("Requested to display " + n);
+        //Debug.Log("Requested to display " + n);
         num.display(""+n);
     }
 
